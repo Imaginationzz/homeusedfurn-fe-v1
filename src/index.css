@@ -1,0 +1,160 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+Body {
+  margin: 0;
+  height: 100vh;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#root {
+  height: 100%;
+}
+/*layout*/
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
+  height: 100%;
+}
+
+header {
+  grid-area: header;
+  background-color: rgb(3, 13, 52);
+}
+main {
+  grid-area: main;
+  padding: 1rem;
+}
+
+footer {
+  grid-area: footer;
+  background-color: rgb(3, 13, 52);
+  color: white;
+}
+/*common tags */
+h1 {
+  padding: 1rem 0;
+  font-size: 1.8rem;
+}
+h1 {
+  padding: 1rem 0;
+  font-size: 1.6rem;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: green;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+li {
+  margin-top: 1rem;
+}
+button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem red solid;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}
+button:hover {
+  border: 0.2rem black solid;
+}
+button.primary {
+  background-color: yellowgreen;
+}
+button.block {
+  width: 100%;
+}
+
+header a {
+  color: white;
+  padding: 1rem;
+}
+/* style for main title*/
+a.brand {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.row.center {
+  justify-content: center;
+}
+.row.top {
+  align-items: flex-start;
+}
+.col-1 {
+  flex: 1 1 25rem;
+}
+.col-2 {
+  flex: 2 1 50rem;
+}
+/*styling images*/
+img {
+  border-radius: 0.5rem;
+}
+img.medium {
+  max-width: 29rem;
+  width: 100%;
+}
+img.large {
+  width: 100%;
+}
+.card {
+  border: 0.1rem gray solid;
+  background-color: rgb(240, 242, 245);
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+.card-body {
+  padding: 1rem;
+}
+.card-body > * {
+  margin-bottom: 0.5rem;
+}
+.price {
+  font-size: 2rem;
+}
+/*rating*/
+.rating span {
+  color: #f0c040;
+}
+.rating span:last-child {
+  color: black;
+}
+.success {
+  color: greenyellow;
+}
+.error {
+  color: red;
+}
+.alert {
+  padding: 1rem;
+  border: 1px solid red;
+  border-radius: 0.5rem;
+  color: brown;
+  background-color: darkgray;
+  font-weight: bold;
+  text-align: center;
+}
