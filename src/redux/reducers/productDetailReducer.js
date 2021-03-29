@@ -1,28 +1,28 @@
-import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
+import { PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS } from "../constants/productConstants";
 
 
-const productState={
+const productDetailState={
     
-        products: [],
+        product:{},
         error: false,
         loading:false
       
 };
 
-export const productReducer = (state = productState, action)=>{
+export const productDetailReducer = (state = productDetailState, action)=>{
     let { type, payload } = action;
     switch(type){
-        case PRODUCT_LIST_REQUEST:
+        case PRODUCT_DETAILS_REQUEST:
             return{
                 ...state,
                 loading:true};
-            case PRODUCT_LIST_SUCCESS:
+            case PRODUCT_DETAILS_SUCCESS:
                 return{
                     ...state,
                     loading:false,
                     error:false,
-                    products:payload};
-                case PRODUCT_LIST_FAIL:
+                    product:payload};
+                case PRODUCT_DETAILS_FAIL:
                     return{
                         ...state,
                         loading:false,error:payload}
