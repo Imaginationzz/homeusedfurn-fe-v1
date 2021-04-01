@@ -25,7 +25,7 @@ export default function SigninPage(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
-    console.log("sss", userInfo);
+
     if (userInfo) {
       props.history.push("/");
     } else {
@@ -34,7 +34,7 @@ export default function SigninPage(props) {
   };
 
   return (
-    <div>
+    <div className="signin">
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicEmail">
           <h1>Please Sign In:</h1>
@@ -62,7 +62,8 @@ export default function SigninPage(props) {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-        <Form.Label>If You Are New Please Register{""}</Form.Label>
+        {"    "}
+        <Form.Label>If You Are New Please Register{"    "}</Form.Label>
 
         <Link to="/register">Create New Account</Link>
       </Form>

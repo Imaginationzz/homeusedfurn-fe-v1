@@ -36,12 +36,17 @@ function ProductPage(props) {
         <Alert className="alert">something wrong has happened:{error}</Alert>
       ) : (
         <div>
-          <Link to="/">Back to main</Link>
-          <div className="row top">
+          <Link style={{ padding: "2rem", fontWeight: "bold" }} to="/">
+            Back to main
+          </Link>
+          <div style={{ padding: "1rem" }} className="row top">
             <div className="col-2">
               <img className="large" src={product.image} alt={product.name} />
             </div>
-            <div className="col-1">
+            <div
+              style={{ padding: "1rem", fontWeight: "bold" }}
+              className="col-1"
+            >
               <ul>
                 <li>
                   <h1>{product.name}</h1>
@@ -70,7 +75,7 @@ function ProductPage(props) {
                       <div>Status</div>
                       <div>
                         {product.countInStock > 0 ? (
-                          <span className="success">{`Last ${product.countInStock} left !` }</span>
+                          <span className="success">{`Last ${product.countInStock} left !`}</span>
                         ) : (
                           <span className="error">Unavailable</span>
                         )}

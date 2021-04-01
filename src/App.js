@@ -25,13 +25,19 @@ function App() {
   const userInfo = useSelector(state => state.userState.userInfo)
 
   const dispatch = useDispatch()
+  const [searchTerm, setSearchTerm] = React.useState("");
+ 
+ const handleSearch = e => {
+    setSearchTerm(e.target.value);
+  };
+
 
   React.useEffect(() => {
     setItems(cartState.cartItems)
   }, [cartState, setItems])
 
   const signoutHandler = () => {
-    dispatch(signout())
+    dispatch(signout(dispatch))
   }
   const openMenu=()=>{
     setShowSide(true)
@@ -47,6 +53,10 @@ function App() {
           <div className="sidebarButton">
             <button  onClick={()=>openMenu()}> &#9776;</button>
             <Link className="brand" to="/">UsedHomeFurn</Link>
+          </div>
+          <div className="search"> 
+          <input value={searchTerm}
+               onChange={handleSearch} type="text" placeholder="Search.."></input>
           </div>
           <div>
             <Link className="link-nav" to="/cart">
@@ -73,8 +83,8 @@ function App() {
           </div>
 
         </header>
-          <aside className={showSide ?"sidebar open":"sidebar"}>
-            <h3>Product Categories</h3>
+          <aside onClick={()=>closeMenu()} className={showSide ?"sidebar open":"sidebar"}>
+            <h3 onClick={()=>closeMenu()}>Product Categories</h3>
             <button className="sideBarCloseBtn" onClick={()=>closeMenu()}>-</button>
             <ul>
              
@@ -95,7 +105,12 @@ function App() {
           <Route path="/payment" component={PaymentPage} exact />
           <Route path="/placeorder" component={PlaceorderPage} exact />
           <Route path="/addproduct" component={AddProductPage} exact />
-          <Route path="/" component={HomePage} exact />
+          <Route
+          path="/"
+          exact
+          render={() => <HomePage searchTerm={searchTerm} />}
+        />
+         
           <Route path="/product/:id" component={ProductPage} />
           <Route path="/cart" component={CartPage} />
 

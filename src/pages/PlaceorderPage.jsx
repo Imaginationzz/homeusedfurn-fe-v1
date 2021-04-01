@@ -4,6 +4,8 @@ import Checkout from "../components/Checkout";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { createOrder } from "../redux/actions/orderActions";
+import { ORDER_CREATE_RESET } from "../redux/constants/orderConstants";
+import { RESET_CART } from "../redux/constants/cartConstants";
 export default function PlaceorderPage(props) {
   const dispatch = useDispatch();
   const shippingAdress = useSelector(
@@ -24,6 +26,8 @@ export default function PlaceorderPage(props) {
       orderItems: cartItems,
     };
     dispatch(createOrder(order));
+    dispatch({ type: ORDER_CREATE_RESET });
+    dispatch({ type: RESET_CART });
     props.history.push("/");
   };
   return (

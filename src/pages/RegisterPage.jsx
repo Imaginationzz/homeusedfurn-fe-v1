@@ -20,7 +20,7 @@ export default function RegisterPage(props) {
     if (password !== confirmPassword) {
       alert("passwords do not match!");
     } else {
-      dispatch(register(email, password, firstName, userName));
+      dispatch(register(firstName, userName, email, password));
       console.log("sss", userInfo);
 
       if (userInfo) {
@@ -30,9 +30,11 @@ export default function RegisterPage(props) {
       }
     }
   };
+  console.log({ error });
 
+  // 1- Create a resEt_ERRORS action on Mount of App.js
   return (
-    <div>
+    <div className="register">
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicEmail">
           <h1>Register Here:</h1>
@@ -84,7 +86,8 @@ export default function RegisterPage(props) {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-        <Form.Label>Already have an account?{""}</Form.Label>
+        {"    "}
+        <Form.Label>Already have an account?{"  "}</Form.Label>
 
         <Link to="/signin">SignIn</Link>
       </Form>

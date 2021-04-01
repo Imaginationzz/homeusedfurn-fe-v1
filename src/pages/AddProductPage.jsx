@@ -18,12 +18,18 @@ export default function AddProductPage(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    dispatch(addProduct(name, category, image, price, brand, description));
+    console.log("gg", userInfo);
+    if (userInfo) {
+      dispatch(addProduct(name, category, image, price, brand, description));
+      alert("Product successfully added");
+      props.history.push("/");
+    } else {
+      alert("you need to sign in!");
+    }
   };
 
   return (
-    <div>
+    <div className="addproduct">
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicEmail">
           <h1>Add Product:</h1>
