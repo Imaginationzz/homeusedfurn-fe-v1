@@ -29,6 +29,7 @@ Body {
 header {
   grid-area: header;
   background-color: rgb(3, 13, 52);
+  height: 6rem;
 }
 main {
   grid-area: main;
@@ -39,6 +40,7 @@ footer {
   grid-area: footer;
   background-color: rgb(3, 13, 52);
   color: white;
+  padding: 3rem;
 }
 /*common tags */
 
@@ -61,16 +63,26 @@ li {
   margin-top: 1rem;
 }
 input,
-select,
-textarea,
-button {
+textarea {
   padding: 1rem;
   border-radius: 0.5rem;
-  border: 0.1rem red solid;
+  border: 0.1rem purple solid;
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+select,
+button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem purple solid;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  background-color: indigo;
 }
 button {
   cursor: pointer;
@@ -82,7 +94,8 @@ button:hover {
   border: 0.2rem black solid;
 }
 button.primary {
-  background-color: yellowgreen;
+  background-color: indigo;
+  font-weight: bold;
 }
 button.block {
   width: 100%;
@@ -140,6 +153,14 @@ img.large {
   margin: 1rem;
   width: 300px;
   height: 450px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card-order-page {
+  border: 0.1rem gray solid;
+  background-color: rgb(240, 242, 245);
+  border-radius: 0.5rem;
+  margin: 1rem;
+
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .card-body {
@@ -245,59 +266,12 @@ form button {
   color: darkslateblue;
 }
 /*carousel styling*/
+
 .carousel {
   width: 70%;
   height: 400px;
   margin: auto;
   padding: 10px;
-}
-.carouselInner {
-  height: 100%;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  animation: 20s center infinite;
-}
-.carouselInner .left {
-  flex: 5%;
-  height: 100%;
-  background-color: rgb(0, 0, 0, 0.6);
-  display: grid;
-  place-items: center;
-  color: white;
-}
-
-.carouselInner .center {
-  flex: 90%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  text-align: justify;
-  text-align-last: center;
-  color: rgb(8, 23, 53);
-}
-.carouselInner .right {
-  flex: 5%;
-  height: 100%;
-  background-color: rgb(0, 0, 0, 0.6);
-  display: grid;
-  place-items: center;
-  color: white;
-}
-.carouselInner .center h1 {
-  font-size: 5rem;
-}
-.carouselInner .center p {
-  font-size: 3rem;
-}
-.carouselInner .center p,
-h1 {
-  background-color: rgba(255, 255, 255, 0.4);
-  padding: 20px;
-  border-radius: 9%;
 }
 
 /*sidebar*/
@@ -409,4 +383,81 @@ h1 {
   background-color: azure;
   border-radius: 20px;
   width: 50%;
+}
+.left-menu {
+  max-width: 50%;
+  height: auto;
+}
+
+/*style the chat modal */
+#chat {
+  position: relative;
+  top: 50px;
+  left: 90px;
+  width: 50%;
+  display: flex;
+  padding: 1rem;
+  background-color: #0d0e0e;
+}
+.chat-Modal {
+  position: fixed;
+  top: 60px;
+  left: 700px;
+  width: 500px;
+  display: flex;
+  padding: 1rem;
+  background-color: rgb(8, 23, 53, 0.8);
+  border-radius: 10px;
+  border: 2px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#chat input {
+  flex: 1 0 auto;
+  outline: 0;
+  border: none;
+}
+
+#chat .btn {
+  background-color: rgb(85, 69, 132);
+  border-color: white;
+  color: #0d0e0e;
+  font-weight: bold;
+  color: white;
+}
+.btn-footer {
+  background-color: rgb(85, 69, 132);
+  border-color: white;
+  color: #0d0e0e;
+  font-weight: bold;
+  color: white;
+}
+
+#messages {
+  list-style: none;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#messages li {
+  max-width: 49%;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+}
+
+.ownMessage {
+  align-self: flex-end;
+  background-color: #00ff84;
+  color: #0d0e0e;
+  border-top-right-radius: 0 !important;
+}
+
+.message {
+  align-self: flex-start;
+  background-color: #0d0e0e;
+  color: white;
+  border-top-left-radius: 0 !important;
 }

@@ -1,13 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Checkout from "../components/Checkout";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
 import { createOrder } from "../redux/actions/orderActions";
 import { ORDER_CREATE_RESET } from "../redux/constants/orderConstants";
 import { RESET_CART } from "../redux/constants/cartConstants";
+import axios from "axios";
 export default function PlaceorderPage(props) {
   const dispatch = useDispatch();
+  const [sdkReady, setSdkReady] = React.useState(false);
+  const [totalAmount, setTotalAmount] = React.useState(null);
   const shippingAdress = useSelector(
     (state) => state.shippingState.shippingAdress
   );
@@ -19,6 +22,17 @@ export default function PlaceorderPage(props) {
   console.log(paymentMethod);
   console.log(cartState);
   const { cartItems } = cartState;
+  const addPayPalScript = async () => {
+    const { data } = await axios.get("http://localhost:5000/order/paypal");
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    };
+    document.body.appendChild(script);
+  };
   const placeOrderHandler = () => {
     const order = {
       shippingAdress: shippingAdress,
@@ -37,7 +51,7 @@ export default function PlaceorderPage(props) {
         <div className="col-2">
           <ul>
             <li>
-              <div className="card card-body">
+              <div className="card-order-page card-body">
                 <h2>Shipping</h2>
                 <p>
                   <strong>Name:</strong>{" "}
@@ -50,7 +64,7 @@ export default function PlaceorderPage(props) {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card-order-page card-body">
                 <h2>Payment</h2>
                 <p>
                   <strong>Method:</strong> {paymentMethod && paymentMethod}
@@ -58,7 +72,7 @@ export default function PlaceorderPage(props) {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card-order-page card-body">
                 <h2>Order Items</h2>
                 <ul>
                   {cartItems.map((item) => (
@@ -78,6 +92,7 @@ export default function PlaceorderPage(props) {
                         <div>
                           {item.Quantity} x ${item.price} = $
                           {item.Quantity * item.price}
+                          {() => setTotalAmount(item.Quantity * item.price)}
                         </div>
                       </div>
                     </li>
@@ -91,8 +106,14 @@ export default function PlaceorderPage(props) {
                 onClick={placeOrderHandler}
                 className="primary"
               >
-                Place Order
+                Pay On Delivery
               </button>
+            </li>
+            <li style={{ maxWidth: "100px" }}>
+              <PayPalButton
+                amount={totalAmount}
+                onSuccess={addPayPalScript}
+              ></PayPalButton>
             </li>
           </ul>
         </div>

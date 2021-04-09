@@ -8,17 +8,6 @@ import { Spinner, Alert } from "react-bootstrap";
 import { listProducts } from "../redux/actions/productActions";
 
 export default function HomePage({ searchTerm }) {
-  // const[products,setProducts]=useState([])
-  // const[loading,setloading]=useState(false)
-  // const[error,setError]=useState(false)
-  const searchresults = () => {
-    if (searchTerm && searchTerm.length > 0) {
-      const results = products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm)
-      );
-    }
-  };
-
   const productState = useSelector((state) => state.productState);
   const { loading, error, products } = productState;
   const dispatch = useDispatch();
@@ -27,6 +16,11 @@ export default function HomePage({ searchTerm }) {
     dispatch(listProducts());
   }, [dispatch]);
 
+  const filteredProds = searchTerm
+    ? products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm)
+      )
+    : [];
   return (
     <div>
       <Slider2 />
@@ -41,9 +35,13 @@ export default function HomePage({ searchTerm }) {
         //   product.name.toLowerCase().includes(searchTerm));
         //
         <div className="row center">
-          {products.map((product) => (
-            <Product key={product._id} product={product} />
-          ))}
+          {filteredProds.length > 0
+            ? filteredProds.map((product) => (
+                <Product key={product._id} product={product} />
+              ))
+            : products.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
         </div>
       )}
     </div>

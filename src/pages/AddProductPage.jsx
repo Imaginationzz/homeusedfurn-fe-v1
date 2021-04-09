@@ -55,6 +55,7 @@ export default function AddProductPage(props) {
             type="file"
             placeholder="image"
             onChange={(e) => setImage(e.target.files[0])}
+            style={{ maxWidth: "40%" }}
           />
         </Form.Group>
 
@@ -64,6 +65,7 @@ export default function AddProductPage(props) {
             type="text"
             placeholder="price"
             onChange={(e) => setPrice(e.target.value)}
+            style={{ maxWidth: "25%" }}
           />
         </Form.Group>
 
@@ -73,6 +75,7 @@ export default function AddProductPage(props) {
             type="text"
             placeholder=" brand"
             onChange={(e) => setBrand(e.target.value)}
+            style={{ maxWidth: "25%" }}
           />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">

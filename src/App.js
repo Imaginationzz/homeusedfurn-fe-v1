@@ -14,15 +14,29 @@ import ShippingPage from './pages/ShippingPage'
 import PaymentPage from './pages/PaymentPage'
 import PlaceorderPage from './pages/PlaceorderPage'
 import AddProductPage from './pages/AddProductPage'
+import ChatModal from './components/ChatModal'
+import io from "socket.io-client";
+const connOpt = {
+  transports: ["websocket", "polling"],
+};
+
+let socket = io("http://localhost:5000/", connOpt);
+
 
 function App() {
   const [showSide, setShowSide] = React.useState(false)
+  
   const [items, setItems] = React.useState([])
   const cartState = useSelector(state => state.cartState)
 
   const totalItems = items.reduce((prev, curr) => prev + curr.Quantity, 0)
 
   const userInfo = useSelector(state => state.userState.userInfo)
+//chat state
+  const [showModal, setShowModal] =React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [messages, setMessages] = React.useState([]);
+  const [connectedUsers, setConnectedUsers] = React.useState([]);
 
   const dispatch = useDispatch()
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -30,6 +44,24 @@ function App() {
  const handleSearch = e => {
     setSearchTerm(e.target.value);
   };
+
+  const toggleModal=()=>{
+    setShowModal(!showModal);
+    socket.emit("joinRoom",{room:"generalChat",username:userInfo.userName})
+  }
+  const sendMessage =e=>{
+    e.preventDefault();
+    socket.emit("sendMessage",{room:"generalChat",message})
+    setMessage("")
+  }
+const handleMessage =e=>{
+  setMessage(e.target.value)
+}
+React.useEffect(() => {
+  socket.on("message",msg=>setMessages(messages=>messages.concat(msg)))
+  socket.on("roomData",({room,users})=>setConnectedUsers(users))
+  socket.on("connect_error")
+}, [])
 
 
   React.useEffect(() => {
@@ -58,7 +90,20 @@ function App() {
           <input value={searchTerm}
                onChange={handleSearch} type="text" placeholder="Search.."></input>
           </div>
-          <div>
+          <div className="left-menu">
+          
+            
+            <div>
+            <ChatModal showModal={showModal} 
+            toggleModal={toggleModal}
+            connectedUsers={connectedUsers}
+            messages={messages}
+            sendMessage={sendMessage}
+            message={message}
+            handleMessage={handleMessage}
+            />
+            </div>
+            <Link className="link-nav" onClick={toggleModal}>Chat</Link>
             <Link className="link-nav" to="/cart">
               Cart
             {items.length > 0 && (
